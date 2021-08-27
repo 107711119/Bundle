@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+   
+  <script src="setting.js"></script>
+  <script src="Cookie.js"></script> 
+  <script src="HTTP2019.js"></script>
+
+  <script>
+      var myObj={
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+  {   
+      "resource": { 
+        "resourceType": "Medication",
+        "id":"",
+        "code": {
+          "coding": [
+            {
+              "system": " https://www1.nhi.gov.tw/QueryN/Query1.aspx ",
+              "code": "AC363491G0",
+              "display": "211 Metformin 500g"
+            }
+          ],
+          "text": "克醣錠"
+        }
+      },
+      "request": {
+          "method": "POST",
+          "url": "/Medication/AC363491G0"
+        }   
+    },
+    {
+      
+      "resource": {
+        "resourceType": "Medication",
+        "id": "BC27035100",
+        "code": {
+          "coding": [
+            {
+              "system": "https://www1.nhi.gov.tw/QueryN/Query1.aspx",
+              "code": "BC27035100",
+              "display": "Jardiance Duo 5/500mg Film-Coated Tablets"
+            }
+          ],
+          "text": "思美糖膜衣錠"
+        }
+      },
+      "request": {
+          "method": "POST",
+          "url": "/Medication/BC27035100"
+        }   
+    },
+    {
+      "resource": {
+        "resourceType": "Medication",
+        "id": "BC25480100",
+        "code": {
+          "coding": [
+            {
+              "system": "https://www1.nhi.gov.tw/QueryN/Query1.aspx",
+              "code": "BC25480100",
+              "display": "Galvus Met Tab. 50/500mg"
+            }
+          ],
+          "text": "高糖優美膜衣錠"
+        }
+      },
+      "request": {
+          "method": "PUT",
+          "url": "/Medication/BC25480100"
+        }   
+    },
+]
+}
+   
+
+function postData()
+{
+  myObj.entry[0].resource.code.text=document.getElementById("medicationname1").value;
+  myObj.entry[0].resource.code.coding[0].code=document.getElementById("medicationnumber1").value;
+  myObj.entry[0].resource.code.coding[0].display=document.getElementById("medicationdescribe1").value;
+ /* myObj.entry[0].resource.id=document.getElementById("medicationnumber1").value;*/
+
+ 
+  myObj.entry[1].resource.code.text=document.getElementById("medicationname2").value;
+  myObj.entry[1].resource.code.coding[0].code=document.getElementById("medicationnumber2").value;
+  myObj.entry[1].resource.code.coding[0].display=document.getElementById("medicationdescribe2").value;
+
+  myObj.entry[2].resource.code.text=document.getElementById("medicationname3").value;
+  myObj.entry[2].resource.code.coding[0].code=document.getElementById("medicationnumber3").value;
+  myObj.entry[2].resource.code.coding[0].display=document.getElementById("medicationdescribe3").value;
+  
+ /* myObj.entry[3].resource.code.text=document.getElementById("medicationname4").value;
+  myObj.entry[3].resource.code.coding[0].code=document.getElementById("medicationnumber4").value;
+  myObj.entry[3].resource.code.coding[0].display=document.getElementById("medicationdescribe4").value;*/
+
+  var jsonStr = JSON.stringify(myObj);
+    alert("aa");
+    var apiURL;
+    apiURL = FHIRrootURL + '/' /*+ "Bundle"*/;
+    HTTPPostData( apiURL,jsonStr);
+}
+  </script>
+</head>
+
+<body style="height: 780px;">
+
+  藥品名稱:<input type="text" id="medicationname1"><br><br>
+  藥品編號:<input type="text" id="medicationnumber1"><br><br>
+  藥品敘述:<input type="text" id="medicationdescribe1"><br><br><hr>
+
+  藥品名稱:<input type="text" id="medicationname2"><br><br>
+  藥品編號:<input type="text" id="medicationnumber2"><br><br>
+  藥品敘述:<input type="text" id="medicationdescribe2"><br><br><hr>
+
+  藥品名稱:<input type="text" id="medicationname3"><br><br>
+  藥品編號:<input type="text" id="medicationnumber3"><br><br>
+  藥品敘述:<input type="text" id="medicationdescribe3"><br><br><hr>
+
+  <input id="Button1" onclick="postData()"  type="button" value="postData" /><br/><br>
+
+</body>
+</html>
